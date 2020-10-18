@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <title>Manager Students</title>
+    <meta charset="UTF-8" />
+</head>
+
+<body class="bg-warning">.
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <th:block layout:replace="fragments/navigation" />
+        <div class="container-fluid ">
+            <div class="spacer">
+                <form th:action="@{listStudiants}" method="get">
+                    <div class="form-group">
+                        <label>Search by Nom </label>
+                        <input type="text" name="motCle" th:value="${motCle}" />
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="panel panel-default">
+
+
+                <div class="col-xs-12" th:if="${pageEtudiants}">
+                    <table class="table center table-hover table-responsive ">
+                        <tr>
+                            <td align="center"><label>CIN</label></td>
+                            <td align="center"><label>NOM</label></td>
+                            <td align="center"><label>dateNaissance</label></td>
+                            <td align="center"><label>email</label></td>
+                            <td align="center"><label>adrres</label></td>
+                            <td align="center"><label>tel</label></td>
+                            <td align="center"><label>photo</label></td>
+                        </tr>
+                        <!-- content for get lite page     -->
+                        <tr th:each="s:${pageEtudiants.content} " th:if="${pageEtudiants}">
+                            <td align="center" th:text="${s.cin}" />
+                            <td align="center" th:text="${s.nom}" />
+                            <td align="center" th:text="${s.dateNaissance}" />
+                            <td align="center" th:text="${s.email}" />
+                            <td align="center" th:text="${s.adrres}" />
+                            <td align="center" th:text="${s.tel}" />
+                            <td align="center" th:text="${s.photo}" />
+                        </tr>
+                    </table>
+                    <!-- for afichie number page -->
+                    <div class="container">
+                        <ul class="nav nav-pills">
+                            <li th:each="p:${pages}" th:class="${p==pageCourante}?active:''">
+                                <a th:href="@{/listStudiants(page=${p},motCle=${motCle},,motCin=${motCin})}" th:text="${p}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

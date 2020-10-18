@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+  <head>
+  
+
+ <!-- Latest compiled and minified CSS 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+
+jQuery library
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+Latest compiled JavaScript
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+   -->
+  
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+ <script src="js/getrequest.js"></script>  
+    <title>Manager Students</title>
+    <meta charset="UTF-8" />
+
+  </head>
+  
+  <body class="bg-warning" >
+  	 <div class="col-md-12 col-sm-12 col-xs-12">  
+      <th:block layout:replace="fragments/navigation"/> 
+      </div>
+        <div class="col-md-3">
+        </div>
+      <div class="col-md-3">
+       <br></br><br></br>
+      <div class="toggle">
+     
+    	<img src="image/1.png"  style="width:280px;height:280px;"/>
+    </div>
+    </div>
+    <div class="col-md-3">
+     <br></br><br></br>
+    <div class="content">
+    	<img src="image/2.png" style="width:280px;height:280px;"/>
+    </div>
+    </div>
+    <script>
+$(document).ready(function(){
+    $(".toggle").click(function(){
+        $(".content").fadeIn();
+      
+    });
+});
+</script>
+  
+	
+  <!--          
+	 <div id="data" style="font-weight: bold;font-size:20px" th:fragment="data">
+		Server Time-stamp :	<label th:text="${first}"></label> <label th:text="${laste}"></label>
+	</div>
+
+	<form id="triggerform" method="get" action="getRegi">
+	<input type="text" id="n_regi" name="n_regi" value="" />	
+		<input type="submit" id="doUpdate" name="_eventId_updateData"
+			value="Refresh" />
+	</form>
+	<script type="text/javascript">
+		Spring.addDecoration(new Spring.AjaxEventDecoration({
+			formId : 'triggerform',
+			elementId : 'doUpdate',
+			event : 'onclick',
+			params : {
+			fragments : "data"
+			}
+		}));
+		
+	</script>  -->
+
+    
+</body> 
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      >
+
+  <head>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link href="css/app.css" rel="stylesheet" type="text/css"/>
+    <title>Etudiants</title>
+    <meta charset="UTF-8" />
+
+  </head>
+
+<body class="bg-warning" >.
+
+  	 <div class="col-md-12">  
+      <th:block layout:replace="fragments/navigation"/>         
+     </div>  
+           <div class="col-md-1">
+         </div>
+           <form th:action="@{updateEtudiant}" method="post" th:object="${etudiant}" enctype="multipart/form-data">        
+        <div class="col-md-3">
+     
+            			
+            			<div class=" form-group has-feedback">
+                          <label> N Registration</label> 
+                       <br></br>
+                            <input type="hidden"  th:field="*{n_regi}" class="form-control" placeholder="N Registration" />
+                           <h4>  <label class="text-primary" th:text="*{n_regi}"></label> </h4>
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+                          <span class="text-danger" th:errors="*{n_regi}"></span>
+                       </div>
+                       
+                 <!--    <div class=" form-group has-feedback">
+                         <label>Date Registration</label>                                                                             
+                         <input  type="date" class="form-control"  placeholder="Date Registration"  th:field="*{dateRegistr}" />                  
+                         <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                     </div> -->
+                     
+                     <div class=" form-group has-feedback">
+                          <label> National Card</label> 
+                       <div class="input-group">
+				<input  type="text" class="form-control"  placeholder="Cin" th:field="*{cin}"  />                  
+						
+                         <span class="input-group-btn">
+                           <button class="btn btn-default" type="sumble" name ="action"  value="getinfo"  >INFO </button>
+                         </span>
+                       </div>
+                       </div>
+                       
+                       <!--  <div class="form-group has-feedback" >
+                             <label>Date Card</label>                 
+                             <input  type="date" class="form-control"  placeholder="Date Card" th:field="*{dateCard}" /> 
+                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                     </div> -->
+                     
+                       <div class="form-group has-feedback" >
+                             <label>First Name</label>                 
+                             <input  type="text" class="form-control"  placeholder="First Name"  th:field="*{firstname}"  /> 
+                             <span class="glyphicon glyphicon-user form-control-feedback" ></span>
+                             <span class="text-danger" th:errors="*{firstname}"></span>
+                             
+                     </div>
+                     
+                       <div class="form-group has-feedback" >
+                             <label>Last Name</label>                 
+                             <input  type="text" class="form-control"  placeholder="Last Name" th:field="*{lastname}"  /> 
+                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                              <span class="text-danger" th:errors="*{lastname}"></span>
+                     </div>
+                   
+                     <div class="form-group has-feedback" >
+                             <label>Date of birth</label>                 
+                             <input  type="date" class="form-control"  placeholder="Date of birth"  th:field="*{dateNaissance}" /> 
+                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                     </div>
+                     
+                     
+                     </div>
+                      <div class="col-md-1">
+         </div>
+                     <div class="col-md-3">
+                        <div class="form-group has-feedback" >
+                             <label>Level of Study</label>                 
+                             <input  type="text" class="form-control"  placeholder="Level of Study"  th:field="*{livelStudy}"  /> 
+                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                             <span class="text-danger" th:errors="*{livelStudy}"></span>
+                     </div>
+                     
+                       <!-- <div class="form-group has-feedback" >
+                             <label>Date of birth</label>                 
+                             <input  type="date" class="form-control"  placeholder="Date of birth"  th:field="*{dateNaissance}" /> 
+                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                     </div> -->
+                     
+                    
+                      <div class="form-group has-feedback" >
+                             <label>City</label>                 
+                             <input  type="text" class="form-control"  placeholder="City" th:field="*{city}"  /> 
+                             <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
+                     </div>
+                     
+                       <div class="form-group has-feedback" >
+                             <label>Address</label>                 
+                             <input  type="text" class="form-control"  placeholder="Address" th:field="*{adrres}" /> 
+                             <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
+                     </div>
+                     <div class="form-group has-feedback" >
+                             <label>Phone</label>                 
+                             <input  type="text" class="form-control"  placeholder="Phone" th:field="*{tel}" /> 
+                             <span class="glyphicon glyphicon-phone  form-control-feedback"></span>
+                     </div>
+                     
+                      <div class=" form-group has-feedback">
+                          <label > Email</label>    
+                          <input type="text" class="form-control" placeholder="Example@gmail.com" th:field="*{email}" />
+                          <span class="glyphicon glyphicon form-control-feedback"></span>
+                     </div> 
+                     
+                                
+                     
+        </div>
+                   <div class="col-md-1">
+         </div>
+                
+         <div class="col-md-3">
+	 	 			<img  th:src="@{getPhoto(n_regi=${etudiant.n_regi})}"  style="width:210px;height:250px;"/>
+	 			<input type="file"  onchange="onFileSelected(event)" name="picture"  />
+			<ul class="nav nav-pills nav-stacked">
+			
+				<li class="active"><a href="#">Operation for Student</a></li>
+				
+				<li><button class="btn btn-primary btn-lg active" type="submit" aria-pressed="true" role="button">Update Student</button></li>
+				
+			
+			
+			</ul>
+
+		
+		</div>
+     </form>
+     
+     
+     
+     
+     
+     
+       <!-- Load jQuery and bootstrap datepicker scripts -->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript">
+         
+        function onFileSelected(event) {
+  var selectedFile = event.target.files[0];
+  var reader = new FileReader();
+
+  var imgtag = document.getElementById("myimage");
+  imgtag.title = selectedFile.name;
+
+  reader.onload = function(event) {
+    imgtag.src = event.target.result;
+  };
+
+  reader.readAsDataURL(selectedFile);
+} </script>
+
+                 
+     		
+     	
+     	</body>
+     	</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      >
+
+  <head>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>  
+
+ <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+ 
+  <!-- <link href="css/app.css" rel="stylesheet" type="text/css"/> -->
+ 			<link rel="stylesheet" href="css/style.css"/>
+            <script src="js/getclass.js"></script>  
+            <script src="js/npm.js"></script> 
+         <!--    <script src="js/jquery-3.2.1.min.js"></script>   -->			
+ 
+    <title>Sector Student</title>
+    <meta charset="UTF-8" />
+
+  </head>
+
+<body class="bg-warning" >.
+
+  	 <div class="col-md-12">  
+      <th:block layout:replace="fragments/navigation"/>         
+     </div>  
+       
+     <div class="text-center" > <font  class="text-success bg-info form-group-lg" size="5"> Registration Student In Sector </font>
+        <div id="div1"></div>
+       
+ 
+        			 </div> 
+       
+ 		
+  <div class="col-md-2 " >
+ 	 </div>		
+ 			
+ <div class="col-md-3 " > 
+
+  <br></br>
+    <br></br>
+               
+ 			      <form th:action="@{getStdClass}" method="GET"  th:object="${getNregi}">
+ 			     <div class="form-group">
+ 			    <input type="text" th:name="n_regi"  placeholder="Registration"/>
+ 			    
+ 			    <button type="submit">Search</button> 			    
+ 			    </div>
+ 			    </form> 
+ 			    <div th:if="${param.error}" class="text-danger">
+ 			 		Not Find This Number Register!!!
+ 			 </div>
+ 			
+ 			    
+ 			    <div class="card" style="width: 25rem;" th:if="${etudiant}">
+  <div class="card-block">
+    <h4 class="card-title text-center" >Information For Student</h4>
+  </div >
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><label style="width: 10rem;"> N Registration:</label><label  class="text-primary "  th:text="${etudiant.n_regi}"></label></li>
+    <li class="list-group-item"><label> National Card:</label> <label class="text-primary" th:text="${etudiant.cin}"></label></li>
+    <li class="list-group-item"><label> Full Name:</label>  <label class="text-primary" th:text="${etudiant.firstname}"></label>
+             		 		 <label class="text-primary" th:text="${etudiant.lastname}"></label></li>
+
+  </ul>
+
+</div> 			    
+ 			    </div>
+ 			    
+ 	  <div class="col-md-2 " th:if="${etudiant}"> 
+ 	  <br></br><br></br><br></br> <br></br><br></br>  
+ 	 <img th:src="@{getPhoto(n_regi=${etudiant.n_regi})}"  height="150" width="150"/>  	  
+ 	  </div>	  
+ 	   <div class="col-md-4 "  >
+ 	    <br></br>
+    <br></br> 
+  <div id="display"></div>
+ 	
+</div>
+ 		
+ 			     
+ 			     <div class="col-md-5 center "  > 
+ 			      <button id="showClassStudent" class="btn2 btn-primary" >Show All Class / Edit</button>
+ 			    
+ 			      <br></br>		  
+   <div class="divTable hidden" th:if="${listclass}">
+    <br></br>
+               <input type="hidden" id="getRegi"  th:value="${etudiant.n_regi}"></input>
+               <label>Date Registration</label>                                                                             
+                         <input  type="date" class="form-control" placeholder="Date Registration"  name="dateRegistr" id="dateRegistr"  required="required"  />  
+                <select id="jqxListBox" th:feild="*{listclass}" >
+               <option th:each="listclass: ${listclass}" th:value="${listclass.autoId}" th:text="${listclass.section}" />
+    
+               </select> 
+               <select id="jqyears">
+               <option>1 Year</option>
+               <option>2 Years</option>
+                <option></option>
+
+               </select>
+               <select id="jqxlistyears">
+               <option >2016/2017</option>
+                <option >2017/2018</option>
+                 <option >2018/2019</option>
+                  <option>2019/2020</option>
+                   <option >2020/2021</option>
+                    <option >2022/2023</option>
+                     <option >2023/2024</option>
+                      <option>2024/2025</option>
+                       <option>2025/2026</option>
+                        <option>2026/2027</option>
+               
+               </select>
+                
+              
+               <br></br>
+                 	<button id="addClassStd" data-toggle="modal" data-target="#save-modal" class="bt1 btn-primary" >Add Class
+                 	 <div class="hidden n_regi" th:text="${etudiant.n_regi}"></div>
+                 	
+                 	</button>   
+    			      <button id="showEditClass" class="bt1 btn-primary" >Show Edit</button>       
+   </div>	
+ 			   
+ 		
+ 			   
+ 			    </div>
+ 			    <br></br>
+ 			       <div class="col-md-12 center "  > 
+ 			       <div class="col-md-2 center " ></div> 
+ 			       <div class="col-md-7 center "  >
+ 			     
+             <table class="table table-striped"  th:if="${list}">
+             
+             <tr>
+             
+             <th>Section</th><th>Level</th><th>Years</th><th>Date registry</th><th class="hidden columnEditClass">Remove</th>
+             </tr>
+         
+             	<tr th:each="o:${list}">
+                 
+                   <td th:text="${o.pk.classSt.section}"></td>
+                    <td th:text="${o.livel}"></td>
+                     <td th:text="${o.years}"></td>
+                     <td th:text="${o.dateRegistr}"></td>
+              <td class="hidden columnEditClass">
+       
+             		<button type="submit" data-toggle="modal" data-target="#dele-modal"  class="delStdClass btn btn-danger btn-xs">
+             	<span class="glyphicon glyphicon-remove"></span>
+              	<div class="hidden autoId"  th:text="${o.pk.classSt.autoId}"></div> 
+              	<div class="hidden n_regi" th:text="${etudiant.n_regi}"></div>
+              		<div class="hidden years"  th:text="${o.years}"></div> 
+
+             	</button>                
+                  </td>          
+             </tr>              
+           </table>
+           </div></div>
+          
+      <!--  data-toggle="modal" data-target="#dele-modal" -->
+       
+       
+<div class="modal fade" id="dele-modal" tabindex="-1" role="dialog" aria-labelledby="inset-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Update Sector</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{deleClassStd}" method="POST" >  
+         <input type="hidden" id="livel" name="livel" value=""  class="form-control" />
+        <input type="hidden" id="n_regi" name="n_regi" value=""  class="form-control" />
+        <input type="hidden" id="autoId" name="autoId" value=""  class="form-control" />
+         <input type="hidden" id="years" name="years" value=""  class="form-control" />
+          <input type="hidden" id="dateRegistr" name="dateRegistr" value=""  class="form-control" />
+         
+<div class="msg"><h3>Are you sure you wish to delete this Sector</h3></div>
+      <div class="modal-footer">      
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save</button>
+      </div>
+      </form>
+        </div>       
+    </div>
+  </div>
+</div>  
+       
+<div class="modal fade" id="save-modal" tabindex="-1" role="dialog" aria-labelledby="inset-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Update Class</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{saveClassStd}" method="POST" >  
+         <input type="hidden" id="livel" name="livel" value=""  class="form-control" />
+        <input type="hidden" id="years" name="years" value=""  class="form-control" />
+         <input type="hidden" id="dateRegistr" name="dateRegistr" value=""  class="form-control" required="required" />
+        <input type="hidden" id="n_regi" name="n_regi" value=""  class="form-control" />
+        <input type="hidden" id="autoId" name="autoId" value=""  class="form-control" />
+<div class="msg"><h3>Are you sure you wish to Save this class</h3></div>
+      <div class="modal-footer">      
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save</button>
+      </div>
+      </form>
+        </div>       
+    </div>
+  </div>
+</div> 
+       
+        
+<!--        <script type="text/javascript">
+       $(document).ready(function(){
+	$("#addClassStd").click(function(){
+       $("this").hide();
+		
+		
+	});
+    	});
+       
+       </script>  -->
+                                
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

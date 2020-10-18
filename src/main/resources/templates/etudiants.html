@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ 			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4"   
+      >
+
+  <head>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <title>Students</title>
+    <meta charset="UTF-8" />
+
+  </head>
+
+  <body class="bg-warning">
+      <th:block layout:replace="fragments/navigation"/>         
+ <div class="container-fluid ">  
+            
+             <div class="col-xs-12">                 
+                 <form action="controleur" method="POST" enctype="multipart/form-data">
+                 <table class="table center table-hover table-responsive ">                   
+                     <tr>
+                          <td align="center"><label>CIN</label></td>
+                          <td align="center"><label>NOM</label></td>
+                          <td align="center"><label>dateNaissance</label></td>                          
+                          <td align="center"><label>email</label></td>
+                          <td align="center"><label>adrres</label></td>
+                          <td align="center"><label>tel</label></td>
+                          <td align="center"><label>photo</label></td>   
+                           
+                     </tr>
+                                    
+                        <tr th:each="s:${etudiants}" if="etudiants" >    
+                           <td align="center" th:text="${s.cin}" />                    
+                           <td align="center" th:text="${s.nom}"/>  
+                           <td align="center" th:text="${s.dateNaissance}" />                    
+                           <td align="center" th:text="${s.email}"/>
+                           <td align="center" th:text="${s.adrres}"/>
+                           <td align="center" th:text="${s.tel}"/>
+                           <td align="center" th:text="${s.photo}"/>                         
+              			</tr>
+          
+          
+                   </table> 
+                 </form>
+              </div>
+         </div>                          
+       
+</body>
+</html>

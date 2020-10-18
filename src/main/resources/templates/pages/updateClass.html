@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      >
+
+  <head>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link href="css/app.css" rel="stylesheet" type="text/css"/>
+    <title>Class Student</title>
+    <meta charset="UTF-8" />
+
+  </head>
+
+<body class="bg-warning" >.
+
+  	 <div class="col-md-12">  
+      <th:block layout:replace="fragments/navigation"/>         
+     </div>  
+       
+     <div class="text-center" > <font  class="text-success bg-info form-group-lg" size="5"> Information Class </font>
+       
+       
+ 
+        			 </div> 
+       
+ 		
+  <div class="col-md-2 " >
+ 	 </div>		
+ 			
+ <div class="col-md-3 " > 
+
+  <br></br>
+    <br></br>
+               
+ 			      <form th:action="@{getStdClass}" method="get"  th:object="${getNregi}">
+ 			     <div class="form-group">
+ 			    <input type="text" th:name="n_regi"  placeholder="Registration"/>
+ 			    
+ 			    <button type="submit">Search</button> 			    
+ 			    </div>
+ 			    </form> 
+ 			    <div th:if="${param.error}" class="text-danger">
+ 			 		Not Find This Number Register!!!
+ 			 </div>
+ 			
+ 			    
+ 			    <div class="card" style="width: 25rem;" th:if="${etudiant}">
+  <div class="card-block">
+    <h4 class="card-title text-center" >Information For Student</h4>
+  </div >
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><label style="width: 10rem;"> N Registration:</label><label  class="text-primary "  th:text="${etudiant.n_regi}"></label></li>
+    <li class="list-group-item"><label> National Card:</label> <label class="text-primary" th:text="${etudiant.cin}"></label></li>
+    <li class="list-group-item"><label> Full Name:</label>  <label class="text-primary" th:text="${etudiant.firstname}"></label>
+             		 		 <label class="text-primary" th:text="${etudiant.lastname}"></label></li>
+
+  </ul>
+
+</div>
+ 			    
+ 			    </div>
+ 			    
+ 	  <div class="col-md-2 " th:if="${etudiant}"> 
+ 	  <br></br><br></br><br></br> <br></br><br></br>
+   
+ 	 <img th:src="@{getPhoto(n_regi=${etudiant.n_regi})}"  height="170" width="150"/> 
+
+ 	  
+ 	  </div>
+ 		
+ 
+ 			     <div class="col-md-4 "  > 
+ 			     
+ 			   
+ 			    
+            			
+            		
+            			 
+            			  <form th:action="@{updateClassS}" method="GET" th:object="${classStudent}" > 
+            			 <!--  <div th:if="${param.error2}" class="text-danger">
+ 			 		Fill the Void !!! 
+ 			 </div>-->
+                <div th:if="${etudiant}"  >
+                <select th:field="*{etudiant}" class="form-control">
+               <option th:each="etudiant: ${etudiant}" th:value="${etudiant.n_regi}" th:text="${etudiant.n_regi}" />
+               </select>       
+  
+                </div> 
+            			 <div class=" form-group has-feedback">
+                          <label>Section</label> 
+                       
+                            <input type="text" th:field="*{section}" class="form-control" placeholder="Section"/>
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{section}"></span>
+
+                         
+                       </div>
+                       <div class=" form-group has-feedback">
+                          <label> Level</label> 
+                       
+                            <input type="text" th:field="*{livel}"  class="form-control" placeholder="Level"/>
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{livel}"></span>
+                         
+                       </div>
+
+                       
+                          <div class=" form-group has-feedback">
+                          <label> SchoolYear</label> 
+                       
+                            <input type="hidden"  th:field="*{yearsStady}"  class="form-control" placeholder="Years Stady" />
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{yearsStady}"></span>
+                         
+                       </div>
+                       
+                         <div class=" form-group has-feedback">
+                          
+                       <div><button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save Class</button></div>
+                    </div>
+                       </form>
+                       
+ 			  
+ 			    
+ 			   </div>
+ 			     <div class="col-md-3 " >
+ 	 </div>		
+ 			      <div class="col-md-6 center" > 
+             <table class="table table-striped" th:if="${listclass}">
+             <tr>
+             <th>Section</th><th>Level</th><th>SchoolYear</th>
+             </tr>
+           
+             	<tr th:each="o:${listclass}">
+                  <td th:text="${o.section}"></td>
+                  <td th:text="${o.livel}"></td>
+                  <td th:text="${o.yearsStady}"></td>
+                    <td><a  th:href="@{infoStudent(n_regi=${o.etudiant.n_regi},years=${o.yearsStady})}">More</a></td>  
+                 <td><a onclick="return confirm('you want delete this Class')" th:href="@{deleteClass(years=${o.yearsStady},n_regi=${o.etudiant.n_regi})}">Delete</a></td>                      
+             	<td><a  th:href="@{updateC(years=${o.yearsStady})}">Update</a></td>  
+             			                 
+                            
+             </tr>              
+           </table>
+     <!--       <div class="container">
+           <ul class="nav nav-pills">
+           <li th:each="p,status:${pages}">
+           <a  th:href="@{/consulterCompte(codeCompte=${codeCompte},page=${status.index})}"
+            th:text="${status.index}"></a>
+          
+           </li>
+           
+           </ul>
+           </div> -->
+            </div>
+ 			  
+ 			        		
+                                      
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

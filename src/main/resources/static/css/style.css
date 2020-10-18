@@ -1,0 +1,51 @@
+@media (min-width:700px){
+	
+	.table-wrapper{
+		padding:10px 30px 5px;
+		border:2px solid #ccc;
+		border-raduis:5px;
+		box-shadow:#ddd 2px 2px 2px 0px;	
+	}
+		.table-wrapper{
+		padding:10px 30px 5px;
+		border:2px solid #ccc;
+		border-raduis:5px;
+		box-shadow:#ddd 2px 2px 2px 0px;	
+	}
+	th{
+		font-size:1.5em;
+	}
+	
+}
+ select{	
+	width:200px;
+	height: 30px;
+}
+.btn1{
+   width:200px
+   }
+   .btn2{
+   width:200px
+   }
+.divTable{
+	  width: 200px;
+    height: 100px;:
+	 background: #ccc;
+	
+}
+ input{
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
+    font-size: 15px;
+
+    
+}
+.bt1{
+	 width: 98px;
+	
+}
+ select{	
+	width:200px;
+	height: 30px;
+}

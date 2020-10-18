@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4"    
+      >
+
+  <head>
+   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <title>Manager Students</title>  
+      <meta charset="UTF-8" />
+
+  </head>
+    <body  class="bg-warning">          
+ <div class="col-md-12">  
+      <th:block layout:replace="fragments/navigation"/>         
+
+    </div > 
+    
+    <div class="text-center" >
+    <font  class="text-success bg-info form-group-lg" size="5" > INFORMATION STUDENT</font>     
+    </div>
+     
+                       
+                 <div class="col-xs-1">                     
+                 </div>               
+                 <div class="col-xs-4"> 
+                     <table class="table center table-hover table-responsive " >
+                         <tr>
+                            <td>
+                                <label class="text-warning bg-info  form-group-lg"> N Registration</label>   
+                            </td>
+                            <td  >    <p th:text="${etudiant.n_regi}"></p></td>                           
+                         </tr>
+               <!--           <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Date Registration</label>   
+                            </td>
+                  
+                               
+                               <td> 
+                               
+                               <select id="idchangebydate" th:feild="*{classStudent}" >
+           						    <option th:each="classStudent: ${classStudent}" th:value="${classStudent.dateRegistr}" th:text="${classStudent.dateRegistr}" />   
+                              </select>     
+                              </td>                
+                         </tr>
+                          <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Section</label>   
+                            </td>
+                        
+ 									<td ><p th:text="${classStudent.n_regi}"></p></td>   
+                         </tr>
+                         <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Level</label>   
+                         </td>
+                            <td >  <p th:text="${etudiantclass.livel}"></p></td>   
+                         </tr>
+                         <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> SchoolYear</label>   
+                            </td>
+                            <td>
+                            <select id="idchangebydate" th:feild="*{classStudent}" >
+           						    <option th:each="classStudent: ${classStudent}" th:value="${classStudent.years}" th:text="${classStudent.years}" />   
+                              </select> 
+									 <p th:text="${classStudent.years}"></p>  
+                                
+                            </td>
+                         </tr> -->
+                          
+                                     <tr>
+                            <td>
+                                 <label class="text-warning bg-info form-group-lg" > National Card</label>   
+                            </td>
+                            <td>
+									<p th:text="${etudiant.cin}"></p>
+                          </td>                            
+                         </tr>
+                            <tr> 
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> First Name</label>   
+                            </td>
+                            <td>
+                               <p th:text="${etudiant.firstname}"></p>
+                             </td>
+                         </tr>
+                         <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Last Name</label>   
+                            </td>
+                            <td>
+									 <p th:text="${etudiant.lastname}"></p>
+                         </td>
+                         </tr>
+                         <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Date of birth</label>   
+                            </td>
+                            <td>
+                             <p th:text="${etudiant.dateNaissance}"></p>
+	
+	                           </td>
+                         </tr>
+                       <!--   <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Date Card</label>   
+                            </td>
+                            <td>
+                               	<p th:text="${etudiant.dateCard}"></p>
+                            </td>
+                         </tr> -->
+                                              
+                     </table>                                                 
+                 </div>
+                            <div class="col-xs-4">
+                                 <table class="table center table-hover table-responsive ">
+                                 
+                                    <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Phone Number</label>   
+                            </td>
+                            <td>
+                               <p th:text="${etudiant.tel}"></p>
+                               </td>
+                          
+                         </tr>
+                         <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Level of Study</label>   
+                            </td>
+                            <td>
+                            <p th:text="${etudiant.livelStudy}"></p>
+                            </td>
+                         </tr> 
+                         <!--             <tr>
+                            <td>
+                                 <label class="text-warning bg-info form-group-lg" > National Card</label>   
+                            </td>
+                            <td>
+									<p th:text="${etudiant.cin}"></p>
+                          </td>                            
+                         </tr>
+                         <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Date Card</label>   
+                            </td>
+                            <td>
+                               	<p th:text="${etudiant.dateCard}"></p>
+                            </td>
+                         </tr>-->
+                       <!--    <tr> 
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> First Name</label>   
+                            </td>
+                            <td>
+                               <p th:text="${etudiant.firstname}"></p>
+                             </td>
+                         </tr>
+                         <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Last Name</label>   
+                            </td>
+                            <td>
+									 <p th:text="${etudiant.lastname}"></p>
+                         </td>
+                         </tr> -->
+                         
+                          <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> City</label>   
+                            </td>
+                            <td>
+                             <p th:text="${etudiant.city}"></p>
+                            </td>
+                         </tr> <tr>
+                            <td>
+                                <label class="text-warning bg-info form-group-lg"> Address</label>   
+                            </td>
+                            <td>
+                             <p th:text="${etudiant.adrres}"></p>
+                           </td>
+                         </tr>   
+                       <tr>
+                            <td> <label class="text-warning bg-info form-group-lg"> Email</label></td>
+                             
+                              <td>  <p th:text="${etudiant.email}"></p></td>
+                         </tr>                                      
+                                 </table>
+                            </div> 
+                            <div class="col-xs-3">
+                            <div>
+                             <img th:src="@{getPhoto(n_regi=${etudiant.n_regi})}"  height="200" width="200"/>   
+                            </div>
+                               
+                               <!-- <div>
+                               <label class="text-warning bg-info form-group-lg"> Email</label>
+                             
+                                <p th:text="${etudiant.email}"></p>
+                               </div>  -->
+                                   
+                                                      
+                            </div>
+                            <div class="col-xs-12">
+                            <div class="text-center">   
+                      <font class="text-success bg-info form-group-lg" size="5"> INFORMATION SECTOR</font>
+                             </div> 
+                             	     
+             <table class="table table-striped"  th:if="${list}">
+             
+             <tr>
+             
+             <th>Section</th><th>Level</th><th>Years</th><th>Date registry</th><th class="hidden columnEditClass">Remove</th>
+             </tr>
+         
+             	<tr th:each="o:${list}">
+                 
+                   <td th:text="${o.pk.classSt.section}"></td>
+                    <td th:text="${o.pk.classSt.livel}"></td>
+                     <td th:text="${o.years}"></td>
+                     <td th:text="${o.dateRegistr}"></td>
+                  
+             </tr>              
+           </table>
+                             </div>
+                            
+                                <div class="col-xs-12">
+         <div class="text-center">   
+                      <font class="text-success bg-info form-group-lg" size="5"> INFORMATION FINANCE</font>
+                             </div> 
+                              <table class="table center table-hover table-responsive ">
+                                 <tr>
+                                     <td><label class="text-warning bg-info form-group-lg"> JANUARY</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">FEBRUARY</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">MARCH</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">APRIL</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">MAY</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">JUNE</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">JULY</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">AUGUST</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">SEPTEMBER</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">OCTOBER</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">NOVEMBER</label></td>
+                                     <td><label class="text-warning bg-info form-group-lg">DECEMBER</label></td>
+                                 </tr>
+                                 <tr>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                 </tr>              
+                               </table>                              
+                                </div>      
+                               
+    </body>
+</html>

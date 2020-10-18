@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8" />
+    <title>shopping Story</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Bootstrap styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- Customize styles -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <!-- font awesome styles -->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!--[if IE 7]>
+			<link href="css/font-awesome-ie7.min.css" rel="stylesheet">
+		<![endif]-->
+
+    <!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico" />
+
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' th:integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' th:crossorigin='anonymous' />
+
+    <style type="text/css">
+        #default_message_overlay {
+            position: absolute;
+            display: block;
+            width: 120px;
+            color: grey;
+        }
+        
+        .hidden {
+            display: none !important;
+            visibility: hidden !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+	Upper Header Section 
+-->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="topNav">
+            <div class="container">
+                <div class="alignR">
+                    <div class="pull-left socialNw">
+                        <a href="#"><span class="icon-twitter"></span></a>
+                        <a href="#"><span class="icon-facebook"></span></a>
+                        <a href="#"><span class="icon-youtube"></span></a>
+                        <a href="#"><span class="icon-tumblr"></span></a>
+                    </div>
+                    <a href="index"> <span class="icon-home"></span> Home</a>
+                    <a href="#"><span class="icon-user"></span> My Account</a>
+                    <a href="cart"><span class="icon-user"></span > My Cart</a>
+                    <a href="register"><span class="icon-edit"></span> Free Register </a>
+                    <a href="contact"><span class="icon-envelope"></span> Contact us</a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+Lower Header Section 
+-->
+    <div class="container">
+        <div id="gototop"> </div>
+
+
+
+        <!-- photos Ads or logo for site web  on header-->
+        <header id="header">
+            <div class="row">
+                <div class="span4">
+                    <!--  you can using Ads -->
+                </div>
+                <div class="span4">
+
+                    <h1>
+                        <a class="logo" href="index.html"><span>Shopping</span> 
+		<img src="assets/img/logo-bootstrap-shoping-cart.png" alt="bootstrap sexy shop"/>
+	</a>
+                    </h1>
+                </div>
+                <div class="span4 alignR">
+                    <!--  you can using Ads -->
+                </div>
+            </div>
+        </header>
+
+
+
+        <!--
+Navigation Bar Section 
+-->
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li class=""><a th:href="index">Home	</a></li>
+                            <li class=""><a href="list-view.html">List View</a></li>
+                            <li class=""><a href="grid-view.html">Grid View</a></li>
+                            <li class=""><a href="three-col.html">Three Column</a></li>
+                            <li class=""><a href="four-col.html">Four Column</a></li>
+                            <li class=""><a href="general.html">General Content</a></li>
+                        </ul>
+                        <form action="#" class="navbar-search pull-left">
+                            <input type="text" placeholder="Search" class="search-query span2" />
+                        </form>
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
+                                <div class="dropdown-menu">
+                                    <form class="form-horizontal loginFrm">
+                                        <div class="control-group">
+                                            <input type="text" class="span2" id="inputEmail" placeholder="Email" />
+                                        </div>
+                                        <div class="control-group">
+                                            <input type="password" class="span2" placeholder="Password" />
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="checkbox">
+					<input type="checkbox"/> Remember me
+					</label>
+                                            <button type="submit" class="shopBtn btn-block">Sign in</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 
+Body Section 
+-->
+        <div class="row">
+            <div id="sidebar" class="span3">
+                <div class="well well-small">
+                    <h3 align="center">Categories</h3>
+                    <ul class="nav nav-list" th:each="o:${listCategory}">
+                        <li>
+                            <a th:href="@{/products(name=${o.name})}" th:text="${o.name}">
+                                <span class="icon-chevron-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="well well-small alert alert-warning cntr">
+                    <h2>50% Discount</h2>
+                    <p>
+                        only valid for online order.
+                        <br></br>
+                        <br></br>
+                        <a class="defaultBtn" href="#">Click here </a>
+                    </p>
+                </div>
+                <div class="well well-small">
+                    <a href="#"><img src="assets/img/paypal.jpg" alt="payment method paypal" /></a>
+                </div>
+
+                <a class="shopBtn btn-block" href="#">Upcoming products <br></br><small>Click to view</small></a>
+                <br></br>
+                <br></br>
+
+            </div>
+            <div class="span9">
+                <div th:if="${param.error2}" class="text-danger text-center">
+                    cannot Find this product you can using it for new product!!!
+                </div>
+
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+                    <li><a href="products.html">Items</a> <span class="divider">/</span></li>
+                    <li class="active">Preview</li>
+                </ul>
+                <div class="well well-small">
+                    <div class="row-fluid" th:each="o:${products}">
+                        <div class="span5">
+                            <div id="myCarousel" class="carousel slide cntr">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <a href="#"> <img th:src="@{getPhoto(refProduct=${o.refProduct})}" alt="" style="width:100%" /></a>
+                                    </div>
+                                    <div class="item">
+                                        <a href="#"> <img th:src="@{getPhoto2(refProduct=${o.refProduct})}" alt="" style="width:100%" /></a>
+                                    </div>
+                                    <div class="item">
+                                        <a href="#"> <img th:src="@{getPhoto3(refProduct=${o.refProduct})}" alt="" style="width:100%" /></a>
+                                    </div>
+                                </div>
+                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                            </div>
+                        </div>
+                        <div class="span7">
+                            <h3 th:text="${o.name}"></h3>
+                            <hr class="soft" />
+
+                            <form class="form-horizontal qtyFrm" action='/checkout' method='POST' id='checkout-form'>
+                                <div class="control-group">
+                                    <label class="control-label">
+                                   <input type="hidden" name="refProduct" id="refProduct" th:value="${o.refProduct}" />
+                                    
+                                      <input type="hidden" name="forme" id="forme" th:value="${o.prix}" />
+                                          <input type="hidden" name="amount" id="amount" th:value="${o.prix}" />
+                                         <output name="amount2" id="amount2" ></output> $
+                                    
+                                    
+                                    </label>
+                                    <div class="controls">
+
+                                        <input type="number" min="1" max="100" class="span5" value="1" name="qte" id="qte" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span>Color</span></label>
+                                    <div class="controls">
+                                        <select name="color" id="aioConceptName" th:object="${option}" class="span5"> 
+			    						<option th:each="o:${color}" th:value="${o}"  th:text="${o}"></option>					                
+										</select>
+                                    </div>
+
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label"><span>Size</span></label>
+                                    <div class="controls">
+                                        <select name="size" class="span5" id="selectsize">
+						 					 <option th:each="o:${size}" th:value="${o}"  th:text="${o}"></option>
+										</select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span>Quantity</span></label>
+                                    <div class="controls">
+                                        <output name="result" id="result"></output>
+
+                                    </div>
+                                </div>
+
+                                <!--    <a th:href="@{GetStock(refProduct=${o.refProduct},color=selectsize)}"  class="shopBtn"><span class=""></span> stock</a>
+ -->
+
+                                <div class="hidden" id="color"></div>
+                                <div class="hidden" id="size"></div>
+                                <span id="msg"></span>
+                                <h4 th:text="${totalQ}"> </h4>
+                                <h4>Total Items In Stock</h4>
+                                <!--  onclick="location.href='/SaveItems'"  data-toggle="modal"  data-target="#dele-modal"  -->
+
+                                <button type="button" class="shopBtn" data-toggle="modal" data-target="#dele-modal" id="deleCategory"><span class=" icon-shopping-cart"></span> Add to cart                                              	
+										<div class="text name"  sec:authorize="isAuthenticated()" sec:authentication="name" > </div>
+										<div class="hidden refProduct"  th:text="${o.refProduct}"></div>    
+										<div class="hidden color"></div>
+										<div  class="hidden size"></div>
+										<div class="hidden qty" id="qty"></div>									  
+									   <output class="hidden amount3" id="amount3" ></output>
+									    <output class="hidden qtyiteam" id="qtyiteam"  ></output>
+									   
+                                        </button>
+                                <button type="submit" class="shopBtn"><span class=""></span>  $  Buy Now</button>
+
+                            </form>
+                        </div>
+                    </div>
+                    <hr class="softn clr" />
+
+
+                    <ul id="productDetail" class="nav nav-tabs">
+                        <li class="active"><a href="#home" data-toggle="tab">Product Details</a></li>
+                        <li class=""><a href="#profile" data-toggle="tab">Comments About Product </a>
+                        </li>
+                        <!--   <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Acceseries <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#cat1" data-toggle="tab">Category one</a></li>
+                                <li><a href="#cat2" data-toggle="tab">Category two</a></li>
+                            </ul>
+                        </li> -->
+                    </ul>
+                    <div id="myTabContent" class="tab-content tabWrapper">
+                        <div class="tab-pane fade active in" id="home">
+                            <h4>Product Information</h4>
+                            <table class="table table-striped" th:each="op:${products}">
+                                <tbody>
+
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Styles:</td>
+                                        <td class="techSpecTD2"><span th:text="${op.optionsP.style}"></span></td>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Season:</td>
+                                        <td class="techSpecTD2"><span th:text="${op.optionsP.season}"></span></td>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Usage:</td>
+                                        <td class="techSpecTD2"><span th:text="${op.optionsP.usages}"></span></td>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Sport:</td>
+                                        <td class="techSpecTD2"><span th:text="${op.optionsP.sport}"></span></td>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Brand:</td>
+                                        <td class="techSpecTD2"><span th:text="${op.optionsP.brand}"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="tab-pane fade" id="profile">
+                            <div class="row-fluid" th:each="l:${listcomment}">
+                                <hr class="soft" />
+                                <h4 th:text="${l.kp.client.username}"> </h4>
+                                <p th:text="${l.comment}"> </p>
+
+                            </div>
+                            <form th:action="@{saveComment}" method="POST" th:object="${commantair}">
+                                <div id="comment-message" class="form-row " th:each="o:${products}">
+                                    <input type="hidden" th:name="refProduct" th:value="${o.refProduct}" />
+                                    <textarea name="comment" placeholder="Message" id="comment"></textarea>
+                                </div>
+                                <input type="submit" name="dsubmit" id="commentSubmit" value="Comment" />
+                            </form>
+
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Body wrapper -->
+        <!-- 
+Clients 
+-->
+        <section class="our_client">
+            <hr class="soften" />
+            <h4 class="title cntr"><span class="text">Manufactures</span></h4>
+            <hr class="soften" />
+            <div class="row">
+                <div class="span2">
+                    <a href="#"><img alt="" src="assets/img/1.png" /></a>
+                </div>
+                <div class="span2">
+                    <a href="#"><img alt="" src="assets/img/2.png" /></a>
+                </div>
+                <div class="span2">
+                    <a href="#"><img alt="" src="assets/img/3.png" /></a>
+                </div>
+                <div class="span2">
+                    <a href="#"><img alt="" src="assets/img/4.png" /></a>
+                </div>
+                <div class="span2">
+                    <a href="#"><img alt="" src="assets/img/5.png" /></a>
+                </div>
+                <div class="span2">
+                    <a href="#"><img alt="" src="assets/img/6.png" /></a>
+                </div>
+            </div>
+        </section>
+
+        <!--
+Footer
+-->
+        <footer class="footer">
+            <div class="row-fluid">
+                <div class="span2">
+                    <h5>Your Account</h5>
+
+                </div>
+                <div class="span2">
+                    <h5>Iinformation</h5>
+
+                </div>
+                <div class="span2">
+                    <h5>Our Offer</h5>
+
+                </div>
+                <div class="span6">
+                    <h5>The standard chunk of Lorem</h5>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- /container -->
+
+    <!-- Modal  Add to cart shooping-->
+    <div class="modal fade" id="dele-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add To Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <form th:action="@{SaveItems}" method="post" th:object="${CartIteams}">
+
+                    <div class="modal-body">
+                        <input type="text" id="refProduct" th:name="refProduct" />
+                        <input type="text" id="name" th:name="name" />
+                        <input type="text" id="color" th:name="color" />
+                        <input type="text" id="size" th:name="size" />
+                        <input type="text" id="qty" th:name="qty" />
+                        <input type="text" id="amount3" th:name="amount3" />
+
+                        <div class="msg">
+                            <h3> you want add this product in your cart</h3>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add To Cart</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container">
+            <p class="pull-right">
+                <a href="#"><img src="assets/img/maestro.png" alt="payment" /></a>
+                <a href="#"><img src="assets/img/mc.png" alt="payment" /></a>
+                <a href="#"><img src="assets/img/pp.png" alt="payment" /></a>
+                <a href="#"><img src="assets/img/visa.png" alt="payment" /></a>
+                <a href="#"><img src="assets/img/disc.png" alt="payment" /></a>
+            </p>
+        </div>
+    </div>
+    <a href="#" class="gotop"><i class="icon-double-angle-up"></i></a>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.easing-1.3.min.js"></script>
+    <script src="assets/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+    <script src="assets/js/shop.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+    <script>
+        'use strict';
+        document.addEventListener("DOMContentLoaded", ev => {
+
+        }, false);
+
+        window.addEventListener("load", ev => {
+            const
+                elemForme = document.querySelector("#forme"),
+                elemQte = document.querySelector("#qte"),
+                elemAmount = document.querySelector("#amount"),
+                elemAmount2 = document.querySelector("#amount2"),
+                elemAmount3 = document.querySelector("#amount3"),
+                changeHandler = ev => {
+                    elemAmount.value = (parseFloat(elemForme.value) * parseFloat(elemQte.value)).toFixed(2);
+                    elemAmount2.value = (parseFloat(elemForme.value) * parseFloat(elemQte.value)).toFixed(2);
+                    elemAmount3.value = (parseFloat(elemForme.value) * parseFloat(elemQte.value)).toFixed(2);
+
+                };
+
+            elemForme.addEventListener("change", changeHandler, false);
+            elemQte.addEventListener("change", changeHandler, false);
+
+            elemQte.dispatchEvent(new Event("change"));
+
+            // fin code du test
+
+        }, false);
+    </script>
+
+
+
+
+    <!--       ===========================       -->
+
+    <script type="text/javascript">
+        var qty = $(this).find("#qty").html();
+        var qtyiteam = $('.qtyiteam').val();
+        undefined
+        if (name > 'undefined') {
+            $('input[type="submit"]').attr('disabled', 'disabled');
+        }
+
+        $(".shopBtn").click(function() {
+            /* 	refProduct =$(this).find(".refProduct").html();
+            	name =$(this).find(".name").html(); 	
+            	color =$(this).find("#color").html();
+             	size =$(this).find("#size").html();
+             	qty =$(this).find("#qty").html();
+             	amount3 =$(this).find("#amount3").html();
+             	qtyiteam =$(this).find("#qtyiteam").html(); */
+            //var name = $('.name').val();
+            /* 	name =$(this).find(".name").html(); 	
+             */
+            var color = $('#aioConceptName').find(":selected").text();
+            var size = $('#selectsize').find(":selected").text();
+            amount3 = $(this).find("#amount3").html();
+            var qty = $(this).find("#qty").html();
+            var qtyiteam = $('.qtyiteam').val();
+
+            if (qty > qtyiteam) {
+                alert("No Have Stock This Product")
+            }
+            $("#dele-modal input[name=refProduct]").val(refProduct);
+            $("#dele-modal input[name=color]").val(color);
+            $("#dele-modal input[name=size]").val(size);
+            $("#dele-modal input[name=qty]").val(qty);
+            $("#dele-modal input[name=name]").val(name);
+            $("#dele-modal input[name=amount3]").val(amount3);
+
+
+
+            // var name = $('.name').val();
+
+
+            /* alert(refProduct+"/"+name+"/"+color+"/"+size+"/"+qty+"/"+amount3+"/"+qtyiteam);
+ 	if(qty<=qtyiteam){
+ 		
+ 		 $.ajax({
+             type: 'get',
+ 	        url:'/GetStock/'+color+"/"+size+"/"+refProduct+"/"+qty+"/"+amount3+"/"name,
+             success: function (result) {
+ 	          //  $('#result').text(result);
+ 	            alert(result);
+ 	        }
+      }); */
+
+            /* $("#dele-modal input[name=refProduct]").val(refProduct);
+            $("#dele-modal input[name=color]").val(color);
+            $("#dele-modal input[name=size]").val(size);
+            $("#dele-modal input[name=qty]").val(qty);
+            $("#dele-modal input[name=amount3]").val(amount3); */
+            /*  }else{ */
+
+            //alert("Not Stock In this Product"); 
+
+            //}		 	
+        });
+    </script>
+    <!--  <script>
+    $('#deleCategory').click(function(){
+    	
+    	var color = $('#aioConceptName').find(":selected").text();
+    	var size = $('#selectsize').find(":selected").text();
+    	var refProduct = $('#refProduct').val();
+    	var name =$(this).find(".name").html();
+    	var qty =$(this).find("#qty").html();
+    	var amount3 =$(this).find("#amount3").html();
+    	var qtyiteam =$(this).find("#qtyiteam").html();
+    	if(name.value!==null"){
+    	alert("Please You must LogIn  "+name+"?")
+        $('#result').text(name);
+
+    	}else{
+    		 $.ajax({
+                 type: 'get',
+     	        url:'/GetStock/'+color+"/"+size+"/"+refProduct+"/"+qty+"/"+amount3+"/"name,
+                 success: function (result) {
+     	          //  $('#result').text(result);
+     	            alert(result);
+     	        }
+          });
+    	}
+       
+    });
+
+</script> -->
+    <script type="text/javascript">
+        $(function() {
+            var name = $('.name').val();
+
+            $("#aioConceptName").on("change", function() {
+                $("#color").text($("#aioConceptName").val());
+            }).trigger("change");
+
+            $("#selectsize").on("change", function() {
+                $("#size").text($("#selectsize").val());
+            }).trigger("change");
+
+            $("#qte").on("change", function() {
+                $("#qty").text($("#qte").val());
+            }).trigger("change");
+        });
+        refProduct = $(this).find(".refProduct").html();
+        var refProduct = $('#refProduct').val();
+        var color = $('#aioConceptName').val();
+        var size = $('#selectsize').val();
+        var qty = $('#qty').val();
+
+        var btn = document.getElementById(".shopBtn");
+
+
+        /* if(name!=="undefined"){
+        	//$('button[type="button"]').attr('disabled',true);
+        	alert(name);
+        }else{
+        	//$('button[type="button"]').attr('disabled','disabled');
+         	alert("Please LogIn For Add Product");
+         
+        	 } */
+        $.ajax({
+            type: 'get',
+            url: '/GetStock/' + color + "/" + size + "/" + refProduct,
+            success: function(result) {
+                $("#qtyiteam").val(result);
+                $('#result').text(result);
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#aioConceptName').change(function() {
+                var color = $('#aioConceptName').find(":selected").text();
+                var size = $('#selectsize').find(":selected").text();
+                var refProduct = $('#refProduct').val();
+                $.ajax({
+                    type: 'get',
+                    url: '/GetStock/' + color + "/" + size + "/" + refProduct,
+                    success: function(result) {
+                        $("#qtyiteam").val(result);
+                        $('#result').text(result);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#selectsize').change(function() {
+                var color = $('#aioConceptName').find(":selected").text();
+                var size = $('#selectsize').find(":selected").text();
+                var refProduct = $('#refProduct').val();
+                $.ajax({
+                    type: 'get',
+                    url: '/GetStock/' + color + "/" + size + "/" + refProduct,
+                    success: function(result) {
+                        $("#qtyiteam").val(result);
+                        $('#result').text(result);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      >
+
+
+  <head>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  		<!-- 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+  				<script src="js/bootstrap.min.js"></script> -->
+  				
+  			<!-- <script src="js/jquery-3.2.1.min.js"></script>  -->			
+  			<link rel="stylesheet" href="css/style.css"/>
+  			<script src="js/jsClass.js"></script>
+<style type="text/css">
+
+   h1{
+    color: rgb(0,0,255);
+   
+}
+</style>
+    <title>New Sector</title>
+    <meta charset="UTF-8" />
+
+  </head>
+
+<body class="bg-warning" >.
+
+  	 <div class="col-md-12">  
+      <th:block layout:replace="fragments/navigation"/>  
+      
+      <center ><h1>Add New Sector  </h1></center>
+            
+     </div>  
+     <div id="content"></div>
+		    <div class="col-md-2"> 
+ <button type="button" id="addClass" data-toggle="modal" data-target="#inset-modal" class="btn1 btn-primary" >Add New Sector </button>
+ <br></br><br></br>
+ <button id="showEdit" class="btn1 btn-primary" >Show Edit</button>			            		
+
+		    </div> 
+		    <div class="col-md-8"> 
+ 			      
+ 			       <div th:if="${param.error1}" class="text-danger text-center">
+ 			 		cannot add same Class  !!!			 		
+ 			       </div>
+ 			       <div th:if="${param.msg2}" class="text-success text-center" >
+ 			 		Your update was successful :)		 		
+ 			       </div>
+ 			       <div th:if="${param.msg3}" class="text-success text-center" >
+ 			 		The operation was successful	:)		 		
+ 			       </div>
+ 			       <div class="table-wrapper">
+             <table class="table table-striped" th:if="${listclass}">
+             
+             <tr>
+             
+             <th>Sector number</th><th>Section</th><th class="hidden columnEdit">Edit</th>
+             </tr>
+           
+             	<tr th:each="o:${listclass}">
+                
+                  <td th:text="${o.livel}"></td>
+                    <td th:text="${o.section}"></td>
+                  
+                 
+             	<td class="hidden columnEdit">
+             	<button type="submit" data-toggle="modal" data-target="#update-modal" class="editClass btn btn-warning btn-xs">
+             	<span class="glyphicon glyphicon-pencil"></span>
+             	<div class=" hidden autoId"  th:text="${o.autoId}"></div>
+             	
+             	<div class="hidden livel" th:text="${o.livel}"></div>
+             	<div class=" hidden section"  th:text="${o.section}"></div>
+             	
+             	</button>
+             		<button type="submit" data-toggle="modal" data-target="#dele-modal" class="deleClass Class btn btn-danger btn-xs">
+             	<span class="glyphicon glyphicon-remove"></span>
+             	<div class=" hidden autoId"  th:text="${o.autoId}"></div>
+
+             	</button>
+             	
+ 					</td >
+ 				
+             	<!-- th:href="@{updateC(years=${o.yearsStady},section=${o.section},level=${o.livel})}" -->
+       
+             			                  
+                            
+             </tr>              
+           </table>
+           </div>
+          
+                  <div class="container">
+           <ul class="nav nav-pills">
+           <li th:each="p:${pages}" th:class="${p==pageCourante}?active:''">
+           <a  th:href="@{/newclass(page=${p})}"
+            th:text="${p}"></a>          
+           </li>           
+           </ul>
+           </div>
+       </div>
+
+
+<div class="modal fade" id="inset-modal" tabindex="-1" role="dialog" aria-labelledby="inset-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Update Sector</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{SaveClass}" method="get" th:object="${classSt}">  
+       <div class="allInput">
+       
+        <input type="text" id="autoId" name="autoId" value=""  class="hidden" />
+        
+     	 <div class=" form-group has-feedback">
+     	  <div class=" form-group has-feedback">
+                          <label> Sector Number</label>                       
+                            <input type="text" id="livel" name="livel" value=""  class="form-control" placeholder="Sector Number"/>
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{livel}"></span>
+                       </div> 
+                          <label>Section</label>                       
+                            <input type="text"  id="section" name="section" value="" class="form-control" placeholder="Section"/>
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{section}"></span>   
+                       </div>
+                                           
+                      <!--     <div class=" form-group has-feedback">
+                          <label> School Year</label>                        
+                            <input type="text" id="yearsStady" name="yearsStady" value=""   class="form-control" placeholder="Years Stady" />
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{yearsStady}"></span>                         
+                       </div>  -->
+                       </div>  
+      <div class="modal-footer">      
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save</button>
+      </div>
+      </form>
+        </div>       
+    </div>
+  </div>
+</div>  
+
+<div class="modal fade" id="dele-modal" tabindex="-1" role="dialog" aria-labelledby="inset-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Update Sector</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{deleteClass}" method="get" >  
+        
+
+       
+        <input type="hidden" id="autoId" name="autoId" value=""  class="form-control" />
+<div class="msg"><h3>Are you sure you wish to delete this Sector</h3>
+                 <h4>when click delete you remove this class from all students</h4>
+</div>
+      <div class="modal-footer">      
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save</button>
+      </div>
+      </form>
+        </div>       
+    </div>
+  </div>
+</div>  
+
+
+<div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="inset-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Update Sector</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{updateClass}" method="get" th:object="${classSt}">  
+       <div class="allInput">
+       
+        <input type="text" id="autoId" name="autoId" value=""  class="hidden" />
+        
+     	 <div class=" form-group has-feedback">
+     	  <div class=" form-group has-feedback">
+                          <label> Sector number</label>                       
+                            <input type="text" id="livel" name="livel" value=""  class="form-control" placeholder="Sector Number"/>
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{livel}"></span>
+                       </div> 
+                          <label>Section</label>                       
+                            <input type="text"  id="section" name="section" value="" class="form-control" placeholder="Section"/>
+					<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{section}"></span>                         
+                       </div>
+                                           
+                     
+                       </div>  
+      <div class="modal-footer">      
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save</button>
+      </div>
+      </form>
+        </div>       
+    </div>
+  </div>
+</div>   
+
+ 	
+</body>
+</html>

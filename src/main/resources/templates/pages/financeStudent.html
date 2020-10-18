@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+  <head>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="js/jsFinance.js"></script>
+
+
+
+    <title>Finance Student</title>
+    <meta charset="UTF-8" />
+
+  </head>
+  
+  <body class="bg-warning" >.
+  	 <div class="col-md-12 col-sm-12 col-xs-12">  
+      <th:block layout:replace="fragments/navigation"/>         
+     			 
+     			 
+    		 
+     		 <div class="col-md-2 " >
+ 	 </div>	
+      <div class="col-md-3 " > 
+
+  <br></br>
+    <br></br>
+               
+ 			    <form th:action="@{getStfinance}" method="get"  th:object="${getNregi}">
+ 			    <div class="form-group">
+ 			    <input type="text" th:name="n_regi"  placeholder="Registration"/>
+ 			    <input type="text" th:name="years"  placeholder="Years Study"/>  			    
+ 			    <button type="submit">Search</button> 			    
+ 			    </div>
+ 			    </form> 
+ 			    <div th:if="${param.error}" class="text-danger">
+ 			 		Not Find This Number Register!!!
+ 			    </div>			    
+ 			    <div class="card" style="width: 25rem;" th:if="${etudiant}">
+  <div class="card-block">
+    <h4 class="card-title text-center" >Information For Student</h4>
+  </div >
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><label style="width: 10rem;"> N Registration:</label><label  class="text-primary "  th:text="${etudiant.n_regi}"></label></li>
+    <li class="list-group-item"><label> National Card:</label> <label class="text-primary" th:text="${etudiant.cin}"></label></li>
+    <li class="list-group-item"><label> Full Name:</label>  <label class="text-primary" th:text="${etudiant.firstname}"></label>
+             		 		 <label class="text-primary" th:text="${etudiant.lastname}"></label></li>
+             		 		 </ul>
+  </div>
+  <div class="card" style="width: 25rem;" th:if="${classStd}">      
+  <ul class="list-group list-group-flush"> 		 		 
+    <li class="list-group-item"><label> Section:</label> <label class="text-primary" th:text="${classStd.pk.classSt.section}"></label></li>
+    <li class="list-group-item"><label> Level:</label> <label class="text-primary" th:text="${classStd.pk.classSt.livel}"></label></li>
+    <li class="list-group-item"><label> years:</label> <label class="text-primary" th:text="${classStd.years}"></label></li>
+
+  </ul>
+
+</div>
+ 			    
+ 			    </div>
+ 			    
+ 	  <div class="col-md-2 " th:if="${etudiant}"> 
+ 	  <br></br><br></br><br></br> <br></br><br></br>
+   
+ 	 <img th:src="@{getPhoto(n_regi=${etudiant.n_regi})}"  height="170" width="150"/> 
+
+ 	  
+ 	  </div>
+ 		
+ 			     <div class="col-md-3 "  > 
+ 			     
+ 			   
+ 			    
+            			<br></br>
+    <br></br>
+              
+            		
+            			 
+            			  <form th:action="@{SaveStFinance}" method="get" th:object="${finance}" th:field="*{Month}" > 
+            			  <div th:if="${param.error2}" class="text-danger">
+ 			 		Fill the Void !!! 
+ 			  </div>
+ 			  
+ 			 <!--  
+             <div th:if="${etudiant}"  >
+                <select th:field="*{etudiant}" class="form-control">
+               <option th:each="etudiant: ${etudiant}" th:value="${etudiant.n_regi}" th:text="${etudiant.n_regi}" />
+               </select>       
+  
+                </div> 
+               <div th:if="${etudiant}"  >
+                <select th:field="*{classStudent}" class="form-control">
+               <option th:each="classStudent: ${etudiant}" th:value="${etudiant.yearsStady}" th:text="${etudiant.yearsStady}" />
+               </select>       
+  
+                </div>  -->
+                <div th:if="${param.error1}" class="text-danger text-center">
+ 			 		cannot add same Class  !!!			 		
+ 			       </div>
+                  <div class="hidden" th:if="${etudiant}"  >
+                   <select th:field="*{student}" class="form-control">
+               <option th:each="student: ${etudiant}" th:value="${etudiant.n_regi}" th:text="${etudiant.n_regi}" />
+               </select> 
+               
+                </div>
+                  <div class="hidden" th:if="${classStd}"> 
+                  <select th:field="*{years}" class="form-control">
+                <option th:each="years: ${classStd}" th:value="${classStd.years}" th:text="${classStd.years}" />
+                                    </select>                             
+                 </div>
+                  <div>
+                  
+              	 
+              	<input type="radio" name="typePayment" value="Species" checked="checked"
+              	     onchange="document.getElementById('forCheck').style.display='none'"/>
+              	<label>Species</label>
+              	<input type="radio" name="typePayment" value="check"
+              	onchange="document.getElementById('forCheck').style.display='block'"/>
+              	<label>check</label>
+              	<div id="forCheck" style="display:none">
+              		<label>Number check</label>
+              		<input type="text" name="n_check"/>
+              </div>
+              	
+              </div>
+            			
+                       <input type="hidden" th:field="*{n_received}"  class="form-control" placeholder="n_received"/>
+                       <div class=" form-group has-feedback">
+                          <label> Registration</label> 
+                       
+                       <input type="text" th:field="*{registration}"  class="form-control" placeholder="registration"/>
+					<span class=" glyphicon glyphicon-euro form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{registration}"></span>
+                        
+                       </div>
+
+                       
+                          <div class=" form-group has-feedback">
+                          <label> Schooling</label> 
+                       
+                            <input type="text"  th:field="*{Schooling}"  class="form-control" placeholder="Schooling" />
+					<span class=" glyphicon glyphicon-euro form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{Schooling}"></span>
+                         
+                       </div>
+                       <div class=" form-group has-feedback">
+                          <label> Other</label> 
+                       
+                            <input type="text"  th:field="*{Other}"  class="form-control" placeholder="Other" />
+					<span class=" glyphicon glyphicon-euro form-control-feedback"></span>
+					<span class="text-danger" th:errors="*{Other}"></span>
+                         
+                       </div> 
+                        
+                       <div class=" form-group has-feedback">
+                          <label> Pay Month</label> 
+  
+						<select th:field="*{Month}" class="form-control">
+ 							 <option value="JANUARY">JANUARY</option>
+ 							 <option value="FEBRUARY">FEBRUARY</option>
+ 							 <option value="MARCH">MARCH</option>
+							 <option value="APRIL">APRIL</option>
+							  <option value="MAY">MAY</option>
+ 							 <option value="JUNE">JUNE</option>
+ 							 <option value="JULY">JULY</option>
+							 <option value="AUGUST">AUGUST</option>
+							  <option value="SEPTEMBER">SEPTEMBER</option>
+ 							 <option value="OCTOBER">OCTOBER</option>
+ 							 <option value="NOVEMBER">NOVEMBER</option>
+							 <option value="APRIL">APRIL</option>
+						</select>
+					<span class="text-danger" th:errors="*{month}"></span>
+                         	 
+                       </div> 
+                       
+                         <div class=" form-group has-feedback">
+                          
+                       <button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save Finance</button>
+                     <button class="btn btn-primary btn-sm active"  id="edit_finance"  type="button" aria-pressed="true" role="button">Edit Finance</button>
+                     
+                       
+                    </div>
+                    
+                       </form>
+                          
+ 			   </div>
+ 		
+       <div class="col-md-3 " >
+ 	 </div>	
+ 	 <div>
+ 	 <table class="table table-striped" th:if="${financeliste}">
+             
+             <tr>
+             
+            <th>received</th> <th>Date received</th><th>Month Payment</th>  <th>Type Payment</th><th>N check</th> <th>Registration</th><th>Schooling</th><th>Other</th><th>Total</th><th class="columnEdit">Edit</th>
+             </tr>
+            
+             	<tr th:each="o:${financeliste}">
+             	 <td th:text="${o.n_received}"></td>
+             	 <td th:text="${o.date_received}"></td>
+             	  <td th:text="${o.Month}"></td>
+             	  <td th:text="${o.typePayment}"></td>
+             	   <td th:text="${o.n_check}"></td>           	
+                  <td th:text="${o.registration}"></td>
+                  <td th:text="${o.Schooling}"></td>
+                   <td th:text="${o.Other}"></td>
+                  <td th:text="${o.total}"></td>
+                  
+                  
+                     
+             	<td class="columnEdit">
+             	<button type="submit" data-toggle="modal" data-target="#update-modal" class="editFinance btn btn-warning btn-xs">
+             	<span class="glyphicon glyphicon-pencil"></span>
+             	<div class="hidden regi"  th:text="${o.registration}"></div>
+             	<div class="hidden Schooling"  th:text="${o.Schooling}"></div>
+             	<div class="hidden Other"  th:text="${o.Other}"></div>
+             	<div class="hidden rece"  th:text="${o.n_received}"></div>
+             	
+             	</button>
+             		<button type="submit" data-toggle="modal" data-target="#dele-modal" class="delFinance Class btn btn-danger btn-xs">
+             	<span class="glyphicon glyphicon-remove"></span>
+             	<div class=" hidden n_received"  th:text="${o.n_received}"></div>
+             	<div class=" hidden years"  th:text="${o.years}"></div>
+             	<div class=" hidden n_regi"  th:text="${o.student.n_regi}"></div>
+
+             	</button>
+             	
+ 					</td >
+                  
+                  
+                <!--   
+                 <td><a  th:href="@{infoStudent(n_regi=${o.student.n_regi},years=${o.years})}">More</a></td>                     
+                <td><a onclick="return confirm('you want delete this Class')" th:href="@{deleteClass(code=${o.years},n_regi=${o.student.n_regi})}">Delete</a></td>                      
+             	<td><a  th:href="@{updateC(years=${o.years},n_regi=${o.student.n_regi})}">Update</a></td>   -->
+             		                
+                            
+             </tr> 
+                            
+           </table>
+ 	     <div class="container">
+           <ul class="nav nav-pills">
+           <li th:each="p:${pages}" th:class="${p==pageCourante}?active:''">
+            <a  th:href="@{/getStfinance(page=${p},years=${classStd.years},n_regi=${classStd.student.n_regi})}" th:text="${p}"></a>          
+                   
+           </li>           
+           </ul>
+           </div>
+ 	 
+ 	 </div>
+     </div>	   
+      
+      
+      
+      <div class="modal fade" id="dele-modal" tabindex="-1" role="dialog" aria-labelledby="inset-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Update Class</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{deleteFinance}" method="get" >  
+        
+               <input type="hidden" id="n_regi" name="n_regi" value=""  class="form-control" />
+
+               <input type="hidden" id="years" name="years" value=""  class="form-control" />
+       
+        <input type="hidden" id="n_received" name="n_received" value=""  class="form-control" />
+<div class="msg"><h3>Are you sure you wish to delete this received</h3>
+                
+</div>
+      <div class="modal-footer">      
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save</button>
+      </div>
+      </form>
+        </div>       
+    </div>
+  </div>
+</div> 
+</body>
+</html>

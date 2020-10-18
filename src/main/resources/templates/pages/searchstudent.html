@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+       xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity4"    
+      >
+
+  <head>
+   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/style.css"/>
+<script src="js/jsClass.js"></script>
+    <title>Manager Students</title>  
+      <meta charset="UTF-8" />
+
+  </head>
+  <body class="bg-warning" >.
+  	 <div class="col-md-12 col-sm-12 col-xs-12">  
+      <th:block layout:replace="fragments/navigation"/>         
+     			 <div class="container-fluid ">
+     		 <div class="spacer">
+ 			  <form th:action="@{searchStudent}" method="get">
+ 			     <div class="form-group">
+ 			    <button type="submit" class="btn1 btn-primary">Search</button> 
+ 	 		    <input type="text" name="motCin" th:value="${motCin}" placeholder="by Number Register"/> 			  			    
+ 			    </div>
+ 			    </form>
+ 			        <button  id="showEdit"  class="btn1 btn-primary">Show Edit</button> 
+ 			  </div>	 
+ 			   
+     	<div class="panel panel-default">				         
+ 	 			    <div th:if="${param.error}" class="text-danger text-center">
+ 			 		You Must Delete All Class For Delete this Student  !!!
+ 			 </div>
+ 			           
+           <div class="col-xs-12">  
+             <div class="table-wrapper">            
+                 <table class="table center table-hover table-responsive  ">                   
+                     <tr>
+                    <!--   <th>N Registration></th><th>National Card</th><th>First Name</th>
+                      <th>Last Name</th><th>Level of Study</th><th>City</th><th>Phone</th>
+                      <th>Picture</th><th class="hidden columnEdit">Edit</th> -->
+                          <td align="center"><label>N Registration</label></td>
+                          <td align="center"><label>National Card</label></td>
+                          <td align="center"><label>First Name</label></td>
+                          <td align="center"><label>Last Name</label></td> 
+                       <td align="center"><label>Level of Study</label></td> 
+                            <td align="center"><label>City</label></td> 
+                           <!--       <td align="center"><label>Year Study</label></td>   -->                        
+                          <td align="center"><label>Phone</label></td>
+                          <td align="center"><label>Picture</label></td>   
+                           <td align="center"><label class="hidden columnEdit">Edit</label></td>                            
+                     </tr>
+                             <!-- content for get lite page     --> 
+                           <!--  when using classinfo
+                            "${s.etudiant.n_regi}"   -->
+                        <tr th:each="s:${cinEtudiants}"   >  
+                        <td align="center" th:text="${s.n_regi}" />    
+                          <td align="center" th:text="${s.cin}" />                    
+                           <td align="center" th:text="${s.firstname}"/>                               
+                           <td align="center" th:text="${s.lastname}" />
+                           <td align="center" th:text="${s.livelStudy}"/> 
+                          <td align="center" th:text="${s.city}"/>    
+                          <!-- <td align="center" th:text="${s.yearsStady}"/>  -->               
+                          <td align="center" th:text="${s.tel}"/> 
+                           <td align="center" > 
+                           <img class="img-circle"  th:src="@{getPhoto(n_regi=${s.n_regi})}" width="100" height="100"/>
+                           </td>  
+                             
+                           <td align="center"   class="hidden columnEdit">
+<!--                            <a onclick="return confirm('you want delete all information about student')" th:href="@{delete(n_regi=${s.n_regi})}">Delete</a>
+ -->            				
+ 								 <form th:action="@{update}" method="get">
+ 								 <input type="hidden" id="n_regi" name="n_regi" th:value="${s.n_regi}" /> 
+ 								 <button type="submit" data-toggle="modal" data-target="#inset-modal" class="editStudent btn btn-warning btn-xs">
+             				<span class="glyphicon glyphicon-pencil"></span>
+             				
+             				</button>
+             				</form>
+             				<div>
+             				<button type="submit" data-toggle="modal" data-target="#dele-modal" class="deleStudent Class btn btn-danger btn-xs">
+             				<span class="glyphicon glyphicon-remove"></span>
+             				<div class=" hidden n_regi"  th:text="${s.n_regi}"></div>
+             			 </button>
+             			 </div>
+             			 <div>
+             			  <form th:action="@{infoStudent}" method="get">
+ 								 <input type="hidden" id="n_regi" name="n_regi" th:value="${s.n_regi}" /> 
+             			 <button type="submit" data-toggle="modal" data-target="#info-modal" class="deleStudent Class btn btn-success btn-xs">
+             				<span class="glyphicon glyphicon-info-sign"></span>
+             				<div class=" hidden n_regi"  th:text="${s.n_regi}"></div>
+             			 </button>
+             			 </form>
+                       </div>
+ 						 </td>  
+ 						 <!-- <a  th:href="@{update(n_regi=${s.n_regi})}">Update</a> -->                    
+             		  <!-- <td><a  th:href="@{getStdClass(n_regi=${s.n_regi})}">Add Class</a>
+                            
+                            </td>  -->
+             			                
+              </tr>         
+                   </table> 
+                   </div>
+                   <!-- for afichie number page -->
+                    <div class="container">
+           <ul class="nav nav-pills">
+           <li th:each="p:${pages}" th:class="${p==pageCourante}?active:''">
+           <a  th:href="@{/searchStudent(page=${p},motCin=${motCin})}" th:text="${p}"></a>          
+           </li>           
+           </ul>
+           </div>
+           </div>
+           </div>                  
+         </div>     
+         </div>    
+         
+         
+         
+         
+<div class="modal fade" id="dele-modal" tabindex="-1" role="dialog" aria-labelledby="inset-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Update Class</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{delete}" method="get" >  
+        
+
+       
+        <input type="hidden" id="n_regi" name="n_regi" value=""  class="form-control" />
+<div class="msg"><h3>Are you sure you wish to delete this Student</h3></div>
+      <div class="modal-footer">      
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button class="btn btn-primary btn-sm active" type="submit" aria-pressed="true" role="button">Save</button>
+      </div>
+      </form>
+        </div>       
+    </div>
+  </div>
+</div>  
+                		
+                                      
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
